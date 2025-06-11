@@ -1,4 +1,4 @@
-name: Deploy FastAPI backend to Azure Web App
+name: Deploy FastAPI to Azure
 
 on:
   push:
@@ -7,11 +7,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -24,7 +24,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Archive project files
+      - name: Zip for deployment
         run: zip -r release.zip .
 
       - name: Deploy to Azure Web App
@@ -33,4 +33,4 @@ jobs:
           app-name: 'app-step4-42'
           slot-name: 'Production'
           package: release.zip
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_163C2339C7F547AABDBBE5A180E8DCB5 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_XXXXXX }}
