@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -27,10 +27,15 @@ jobs:
       - name: Zip for deployment
         run: zip -r release.zip .
 
+      # ✅ ここが重要：Azure にログイン
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'app-step4-42'
           slot-name: 'Production'
           package: release.zip
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_XXXXXX }}
