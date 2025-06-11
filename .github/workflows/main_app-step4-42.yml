@@ -30,7 +30,7 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'app-step4-42'  # Azure Web App名を指定
+          app-name: 'app-step4-42'
           slot-name: 'Production'
           package: release.zip
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_163C2339C7F547AABDBBE5A180E8DCB5 }}
